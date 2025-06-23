@@ -409,7 +409,7 @@
                     if (data.exists) {
                         const timestamp = new Date().getTime();
                         // Use relative path instead of full URL
-                        previewFrame.src = `Labs/${currentSessionId}/index.html?t=${timestamp}`;
+                        previewFrame.src = `challenges/${currentSessionId}/index.html?t=${timestamp}`;
                     } else {
                         previewFrame.src = 'about:blank';
                     }
