@@ -1,0 +1,27 @@
+IMPORTANT: SESSION ID INSTRUCTIONS
+
+The current session ID is stored in challenges/current_session.json
+To get the session ID:
+
+1. Read challenges/current_session.json
+2. Parse the JSON and get the "session_id" value
+
+For example:
+```bash
+cat challenges/current_session.json | jq .session_id
+```
+
+You MUST:
+1. Use this session ID to create directory: challenges/{sessionId}/
+2. Create static web apps only. Nothing running on a server.
+2. Create ONLY these files in that directory:
+   - index.html
+   - style.css
+   - script.js
+
+DO NOT:
+- Create files outside the challenges/{sessionId}/ directory
+- Make up your own session ID
+- Use a different directory structure
+
+The session ID from challenges/current_session.json is the ONLY valid identifier to use.
