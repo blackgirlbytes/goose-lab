@@ -27,12 +27,8 @@ sleep 2
 
 # Open the launcher in the default browser
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # Open Chrome in app mode and incognito with localhost allowed
-    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
-        --app="file://$SCRIPT_DIR/goose-launcher.html" \
-        --incognito \
-        --allow-insecure-localhost \
-        --user-data-dir="/tmp/goose_chrome_dev" &
+    # Open Chrome in app mode and incognito 
+    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app="file://$SCRIPT_DIR/goose-launcher.html" --incognito &
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Linux
     xdg-open "file://$SCRIPT_DIR/goose-launcher.html"
