@@ -32,7 +32,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         --app="file://$SCRIPT_DIR/goose-launcher.html" \
         --incognito \
         --allow-insecure-localhost \
-        --disable-web-security \
         --user-data-dir="/tmp/goose_chrome_dev" &
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Linux

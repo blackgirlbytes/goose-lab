@@ -627,7 +627,7 @@
             filesExist = false;
             currentSessionId = Date.now();
 
-            document.getElementById('chat-frame').src = `http://localhost:8080/session/${currentSessionId}`;
+            document.getElementById('chat-frame').src = `http://127.0.0.1:8080/session/${currentSessionId}`;
             document.getElementById('chat-container').style.display = 'block';
             document.getElementById('session-ended').style.display = 'none';
             document.getElementById('preview-container').style.display = 'block';
