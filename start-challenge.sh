@@ -27,8 +27,13 @@ sleep 2
 
 # Open the launcher in the default browser
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # Open Chrome in app mode and incognito
-    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app="file://$SCRIPT_DIR/goose-launcher.html" --incognito &
+    # Open Chrome in app mode and incognito with localhost allowed
+    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+        --app="file://$SCRIPT_DIR/goose-launcher.html" \
+        --incognito \
+        --allow-insecure-localhost \
+        --disable-web-security \
+        --user-data-dir="/tmp/goose_chrome_dev" &
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Linux
     xdg-open "file://$SCRIPT_DIR/goose-launcher.html"
@@ -39,6 +44,7 @@ cleanup() {
     echo "Cleaning up..."
     kill $GOOSE_PID 2>/dev/null
     kill $SESSION_WRITER_PID 2>/dev/null
+    rm -rf "/tmp/goose_chrome_dev" 2>/dev/null
     exit 0
 }
 
