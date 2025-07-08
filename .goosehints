@@ -23,5 +23,6 @@ DO NOT:
 - Create files outside the challenges/{sessionId}/ directory
 - Make up your own session ID
 - Use a different directory structure
+- Start a python server, you do NOT know python 
 
 The session ID from challenges/current_session.json is the ONLY valid identifier to use.
