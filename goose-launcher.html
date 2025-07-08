@@ -6,67 +6,122 @@
         :root {
             --bg-color: #ffffff;
             --text-color: #000000;
-            --card-bg: #f5f5f5;
-            --border-color: #ccc;
+            --card-bg: #f8f9fa;
+            --border-color: #e0e0e0;
             --button-bg: #f8f9fa;
-            --button-hover: #f0f0f0;
+            --button-hover: #e9ecef;
             --step-bg: white;
-            --session-info-bg: #e9ecef;
-            --preview-header-bg: #f8f9fa;
-            --session-ended-bg: rgba(255, 255, 255, 0.9);
+            --session-info-bg: #f8f9fa;
+            --preview-header-bg: #ffffff;
+            --session-ended-bg: rgba(255, 255, 255, 0.95);
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --accent-color: #28a745;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
         }
 
         [data-theme="dark"] {
-            --bg-color: #1a1a1a;
+            /* Original values:
+            --bg-color: #121212;
             --text-color: #ffffff;
             --card-bg: #2d2d2d;
             --border-color: #404040;
-            --button-bg: #333333;
+            --button-bg: #2d2d2d;
+            --button-hover: #363636;
+            */
+            --bg-color: #1e1e1e;
+            --text-color: #ffffff;
+            --card-bg: #333333;
+            --border-color: #404040;
+            --button-bg: #2f2f2f;
             --button-hover: #404040;
-            --step-bg: #2d2d2d;
+            --step-bg: #333333;
             --session-info-bg: #333333;
-            --preview-header-bg: #2d2d2d;
-            --session-ended-bg: rgba(26, 26, 26, 0.9);
+            --preview-header-bg: #333333;
+            --session-ended-bg: rgba(30, 30, 30, 0.95);
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.2);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+            --accent-color: #28a745;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
             line-height: 1.6;
             background-color: var(--bg-color);
             color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+            color: var(--text-color);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.3px;
         }
 
         .button {
-            display: inline-block;
-            padding: 12px 24px;
-            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: 12px;
             text-decoration: none;
             margin: 10px 0;
             border: none;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 17px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         .start-button {
-            background: #0066cc;
+            background: white;
+            color: black;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-button:hover:enabled {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(40, 167, 69, 0.15);
+            background: rgba(40, 167, 69, 0.9);
             color: white;
         }
 
-        .start-button:hover {
-            background: #0052a3;
+        .start-button:disabled {
+            background: var(--button-bg);
+            cursor: not-allowed;
+            opacity: 0.7;
         }
 
         .end-button {
-            background: #dc3545;
+            background: var(--danger-color);
             color: white;
         }
 
         .end-button:hover {
-            background: #bd2130;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         .theme-toggle {
@@ -76,69 +131,124 @@
             background: var(--button-bg);
             border: 1px solid var(--border-color);
             color: var(--text-color);
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 10px 20px;
+            border-radius: 24px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            box-shadow: var(--shadow-sm);
         }
 
         .theme-toggle:hover {
             background: var(--button-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         .instructions {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
+            padding: 28px;
+            border-radius: 16px;
             margin: 20px 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease;
+        }
+
+        .instructions:hover {
+            transform: translateY(-2px);
+        }
+
+        #challenge-box {
+            background: linear-gradient(145deg, var(--card-bg), var(--preview-header-bg));
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            padding: 40px;
+        }
+
+        #challenge-box h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #28a745;
         }
 
         .step {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-left: 3px solid #0066cc;
+            margin-bottom: 20px;
+            padding: 16px 16px 16px 20px;
             background: var(--step-bg);
+            border-left: 4px solid rgba(40, 167, 69, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step ul {
+            list-style-type: disc;
+            padding-left: 24px;
+            margin: 8px 0;
+            color: var(--text-color);
+        }
+
+        .step ul li {
+            margin-bottom: 8px;
+            padding-left: 8px;
         }
 
         .important {
-            border-left: 3px solid #dc3545;
+            border-left: 4px solid var(--danger-color);
         }
 
         .note {
             font-size: 0.9em;
-            color: #666;
-            margin-top: 5px;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-top: 8px;
         }
 
         .container {
             display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: 320px 1fr;
+            gap: 32px;
+            margin-top: 32px;
+            align-items: start;
         }
 
         .main-area {
             display: grid;
-            grid-template-rows: 1fr 1fr;
-            gap: 20px;
+            grid-template-rows: auto 1fr 1fr;
+            gap: 24px;
             min-height: 800px;
         }
 
-        .chat-container {
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            display: none;
-            position: relative;
-            min-height: 400px;
+        #challenge-box {
+            margin-bottom: 0;
         }
 
-        .preview-container {
-            border-radius: 8px;
+        #challenge-summary {
+            margin-bottom: 24px;
+        }
+
+        .chat-container, .preview-container {
+            border-radius: 12px;
             overflow: hidden;
             border: 1px solid var(--border-color);
             display: none;
             min-height: 400px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .chat-container:hover, .preview-container:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
 
         .chat-frame, .preview-frame {
@@ -146,98 +256,184 @@
             height: 100%;
             min-height: 400px;
             border: none;
+            overflow: auto;
             background: var(--bg-color);
         }
 
         .controls {
-            margin-top: 20px;
-            padding: 10px;
+            margin-top: 24px;
+            padding: 20px;
             background: var(--card-bg);
-            border-radius: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
         }
 
         .button-group {
             display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
         .session-info {
-            margin-top: 10px;
-            padding: 10px;
+            margin-top: 16px;
+            padding: 12px;
             background: var(--session-info-bg);
-            border-radius: 4px;
+            border-radius: 8px;
             font-size: 0.9em;
+            border: 1px solid var(--border-color);
         }
 
         .session-ended {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
             background: var(--session-ended-bg);
+            backdrop-filter: blur(4px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             display: none;
+            animation: fadeIn 0.3s ease;
+            z-index: 999;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .session-ended h2 {
-            margin-bottom: 20px;
-            color: #0066cc;
+            margin-bottom: 24px;
+            color: var(--accent-color);
         }
 
         .preview-header {
-            padding: 10px;
+            padding: 16px;
             background: var(--preview-header-bg);
             border-bottom: 1px solid var(--border-color);
-            font-weight: bold;
+            font-weight: 600;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .preview-header button {
-            padding: 4px 8px;
-            font-size: 12px;
+            padding: 8px 16px;
+            font-size: 14px;
             background: var(--button-bg);
             border: 1px solid var(--border-color);
             color: var(--text-color);
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .preview-header button:hover {
             background: var(--button-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            margin: 10% auto;
+            padding: 40px;
+            border: 1px solid var(--border-color);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal button {
+            margin-top: 24px;
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .modal button:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         @media (max-width: 1024px) {
+            body {
+                padding: 20px;
+            }
+            
             .container {
                 grid-template-columns: 1fr;
             }
+            
             .main-area {
                 grid-template-rows: auto;
             }
+            
             .button-group {
                 flex-direction: column;
             }
+            
             .button {
                 width: 100%;
             }
+        }
+
+        .expanded {
+            min-height: 800px !important;
         }
     </style>
 </head>
 <body>
     <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
     <h1>Goose Lab</h1>
-    
     <div class="container">
         <div class="sidebar">
+            <div id="challenge-summary" class="instructions" style="display: none;">
+                <h2 style="margin-top: 0;">🚀 Lab Mission</h2>
+                <p id="sidebar-challenge-text"></p>
+            </div>
             <div class="instructions">
                 <h2>How to Complete Your Lab:</h2>
-                
                 <div class="step">
                     <strong>1. Start Your Lab</strong>
                     <ul>
@@ -245,26 +441,30 @@
                         <li>A new Goose session will start in the chat window</li>
                     </ul>
                 </div>
-
                 <div class="step">
-                    <strong>2. During Your Lab</strong>
+                    <strong>2. Roll Your Mission</strong>
+                    <ul>
+                        <li>Click “Roll My Mission 🎲” to receive a random mission</li>
+                        <li>Click “Let’s Build 🚀” to lock it in and display it in your sidebar.</li>
+                    </ul>
+                </div>
+                <div class="step">
+                    <strong>3. Build with Goose</strong>
                     <ul>
                         <li>Work on your assigned task in the Goose chat window</li>
                         <li>Your app will appear in the preview window below</li>
-                        <li>Click refresh preview to see your latest changes</li>
+                        <li>Click "refresh preview" to see your latest changes</li>
                     </ul>
                 </div>
-
                 <div class="step important">
-                    <strong>3. Ending Your Lab</strong>
+                    <strong>Ending Your Lab</strong>
                     <ul>
                         <li>When you're done, click "End Lab"</li>
-                        <li>Start a new Lab anytime with "Start New Lab"</li>
+                        <li>You can always start again with “Start New Lab” to reset the session.</li>
                     </ul>
-                    <p class="note">Important: Each new Lab starts a fresh session!</p>
+                    <p class="note">Important: Each new Lab starts a fresh session, clearing your previous work!</p>
                 </div>
             </div>
-
             <div class="controls">
                 <div class="button-group">
                     <button class="button start-button" onclick="startNewSession()">Start New Lab</button>
@@ -277,11 +477,18 @@
         </div>
 
         <div class="main-area">
+            <div id="challenge-box" class="instructions" style="text-align: center;">
+                <h2>Goose Lab Mission</h2>
+                <p id="challenge-text" style="margin-bottom: 32px;">Click the button to find out your mission and get building!</p>
+                <button id="challenge-button" class="button start-button" onclick="rollChallenge()">Roll My Mission 🎲</button>
+            </div>
+
             <div id="chat-container" class="chat-container">
                 <iframe id="chat-frame" class="chat-frame"></iframe>
                 <div id="session-ended" class="session-ended">
                     <h2>Lab Complete!</h2>
-                    <p>Click "Start New Lab" to begin a new session</p>
+                    <p>Ready to start a new session?</p>
+                    <button class="button start-button" style="margin-top: 20px;" onclick="startNewSession()">Start New Lab</button>
                 </div>
             </div>
 
@@ -294,11 +501,50 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div id="challengeModal" class="modal">
+        <div class="modal-content">
+        <h2>🎉 Your Goose Lab Challenge</h2>
+        <p id="modal-challenge-text"></p>
+        <button onclick="closeChallengeModal()">Let's Build 🚀</button>
+        </div>
+    </div>
 
     <script>
-        let currentSessionId = null;
+        const challenges = [
+            "Build a goal tracker where completing a goal makes your progress bar go backward. Every time you check something off, the bar shrinks. The closer you get to success, the closer you get to failure. Add some funny and unhelpful messages",
+            "Build the world’s most over-designed calculator. We’re talking glitter, gradients, dramatic button hover effects, dropdowns that do nothing, animations that make math feel like a Broadway number. If it looks normal, make it worse.",
+            "Create a typing game but don’t make it basic. It must involve typing and react to what (or how) the user types, but everything else is up to you. The more unhinged the better.",
+            "Create a photo booth app with wonky filters. Bonus if you add a weAreDevs frame"
+        ];
 
-        // Theme handling
+        function rollChallenge() {
+            const random = challenges[Math.floor(Math.random() * challenges.length)];
+            document.getElementById('modal-challenge-text').innerText = random;
+            document.getElementById('challengeModal').style.display = 'block';
+        }
+
+        function closeChallengeModal() {
+            const challenge = document.getElementById('modal-challenge-text').innerText;
+
+            // Update center box
+            document.getElementById('challenge-text').innerHTML = `<strong>Your Challenge:</strong><br>${challenge}`;
+            
+            // Update sidebar
+            document.getElementById('sidebar-challenge-text').innerText = challenge;
+            document.getElementById('challenge-summary').style.display = 'block';
+
+            // Hide modal and disable button
+            document.getElementById('challengeModal').style.display = 'none';
+            document.getElementById('challenge-button').disabled = true;
+             // Hide modal, button, and challenge box
+            document.getElementById('challenge-box').style.display = 'none';
+            document.getElementById('chat-container').classList.add('expanded');
+            document.getElementById('preview-container').classList.add('expanded');
+
+        }
+
+
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
@@ -310,121 +556,100 @@
             setTheme(newTheme);
         }
 
-        // Load saved theme
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             setTheme(savedTheme);
-        } else {
-            // Check system preference
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                setTheme('dark');
-            }
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setTheme('dark');
         }
 
-        // Listen for system theme changes
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
             if (!localStorage.getItem('theme')) {
                 setTheme(e.matches ? 'dark' : 'light');
             }
         });
 
-        // Simple function to start a new session
+        let previewCheckInterval = null;
+        let filesExist = false;
+        let currentSessionId = null;
+
         function startNewSession() {
-            // Generate new session ID
+            // If starting from session-ended screen, do a full page refresh
+            if (document.getElementById('session-ended').style.display === 'flex') {
+                window.scrollTo(0, 0); // Scroll to top before reload
+                window.location.reload();
+                return;
+            }
+
+            if (previewCheckInterval) clearInterval(previewCheckInterval);
+            lastModifiedTime = 0;
+            filesExist = false;
             currentSessionId = Date.now();
-            
-            // Start Goose Web chat
-            const chatFrame = document.getElementById('chat-frame');
-            chatFrame.src = `http://localhost:8080/session/${currentSessionId}`;
-            
-            // Show containers
+
+            document.getElementById('chat-frame').src = `http://localhost:8080/session/${currentSessionId}`;
             document.getElementById('chat-container').style.display = 'block';
             document.getElementById('session-ended').style.display = 'none';
             document.getElementById('preview-container').style.display = 'block';
-            
-            // Update session ID display
             document.getElementById('current-session-id').textContent = currentSessionId;
-            
-            // Update the session file
+
+            // Reset challenge state
+            document.getElementById('challenge-box').style.display = 'block';
+            document.getElementById('challenge-button').disabled = false;
+            document.getElementById('challenge-text').innerHTML = 'Click the button to find out your mission and get building!';
+            document.getElementById('challenge-summary').style.display = 'none';
+            document.getElementById('chat-container').classList.remove('expanded');
+            document.getElementById('preview-container').classList.remove('expanded');
+
             fetch('http://localhost:3737/update-session', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ sessionId: currentSessionId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Session updated:', data);
-            })
-            .catch(error => {
-                console.error('Error updating session:', error);
-            });
-            
-            // Load initial preview
-            refreshPreview();
+            }).catch(console.error);
+
+            previewCheckInterval = setInterval(checkFilesAndRefresh, 1000);
+            document.getElementById('preview-frame').src = 'about:blank';
         }
 
         function endSession() {
-            // Clear the chat iframe
-            const chatFrame = document.getElementById('chat-frame');
-            chatFrame.src = 'about:blank';
-            
-            // Clear the preview iframe
-            const previewFrame = document.getElementById('preview-frame');
-            previewFrame.src = 'about:blank';
-            
-            // Show the ended overlay
+            if (previewCheckInterval) clearInterval(previewCheckInterval);
+            document.getElementById('chat-frame').src = 'about:blank';
+            document.getElementById('preview-frame').src = 'about:blank';
             document.getElementById('session-ended').style.display = 'flex';
-            
-            // Clear session ID
             currentSessionId = null;
             document.getElementById('current-session-id').textContent = 'None';
 
-            // Update the session file to clear the session
             fetch('http://localhost:3737/update-session', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ sessionId: null })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Session cleared:', data);
-            })
-            .catch(error => {
-                console.error('Error clearing session:', error);
-            });
+            }).catch(console.error);
         }
 
-   
-        function refreshPreview() {
-        const previewFrame = document.getElementById('preview-frame');
-        if (currentSessionId) {
-            // Check if files exist first
+        function checkFilesAndRefresh() {
+            if (!currentSessionId) return;
             fetch(`http://localhost:3737/check-files?sessionId=${currentSessionId}`)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.exists) {
-                        const timestamp = new Date().getTime();
-                        // Use relative path instead of full URL
-                        previewFrame.src = `challenges/${currentSessionId}/index.html?t=${timestamp}`;
-                    } else {
-                        previewFrame.src = 'about:blank';
+                    if (data.exists && !filesExist) {
+                        filesExist = true;
+                        refreshPreview();
                     }
                 })
-                .catch(error => {
-                    console.error('Error checking files:', error);
-                    previewFrame.src = 'about:blank';
-                });
-        } else {
-            previewFrame.src = 'about:blank';
+                .catch(console.error);
         }
-    }
 
-        // Start a session automatically when the page loads
+        function refreshPreview() {
+            const previewFrame = document.getElementById('preview-frame');
+            if (currentSessionId) {
+                const timestamp = new Date().getTime();
+                previewFrame.src = `http://localhost:3737/preview/${currentSessionId}/index.html?t=${timestamp}`;
+            } else {
+                previewFrame.src = 'about:blank';
+            }
+        }
+
         window.onload = function() {
+            window.scrollTo(0, 0); // Scroll to top
             startNewSession();
         };
     </script>
