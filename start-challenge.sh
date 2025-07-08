@@ -27,17 +27,8 @@ sleep 2
 
 # Open the launcher in the default browser
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # Try multiple methods for macOS
-    open -a "Google Chrome" "file://$SCRIPT_DIR/goose-launcher.html" || \
-    open -a "Firefox" "file://$SCRIPT_DIR/goose-launcher.html" || \
-    open -a "Safari" "file://$SCRIPT_DIR/goose-launcher.html" || \
-    open "file://$SCRIPT_DIR/goose-launcher.html"
-    
-    # If none worked, provide instructions
-    if [ $? -ne 0 ]; then
-        echo "Please open this URL in your browser:"
-        echo "file://$SCRIPT_DIR/goose-launcher.html"
-    fi
+    # Open Chrome in app mode and incognito
+    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app="file://$SCRIPT_DIR/goose-launcher.html" --incognito &
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Linux
     xdg-open "file://$SCRIPT_DIR/goose-launcher.html"
