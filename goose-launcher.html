@@ -441,6 +441,16 @@
         .expanded {
             min-height: 800px !important;
         }
+
+        .password-display {
+            font-family: monospace;
+            font-size: 1.4em;
+            padding: 12px 24px;
+            background: rgba(40, 167, 69, 0.15);
+            border-radius: 8px;
+            margin: 12px 0;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -483,7 +493,7 @@
                     <strong>Ending Your Lab</strong>
                     <ul>
                         <li>When you're done, click "End Lab"</li>
-                        <li>You can always start again with “Start New Lab” to reset the session.</li>
+                        <li>You can always start again with "Start New Lab" to reset the session.</li>
                     </ul>
                     <p class="note">Important: Each new Lab starts a fresh session, clearing your previous work!</p>
                 </div>
@@ -513,8 +523,12 @@
                     <p>Ready to start a new session?</p>
                     <button class="button start-button" style="margin: 20px 0;" onclick="startNewSession()">Start New Lab</button>
                     <div style="margin-top: 20px; padding: 24px; background: rgba(40, 167, 69, 0.1); border-radius: 12px; max-width: 500px; text-align: center;">
-                        <h3 style="color: var(--accent-color); margin-bottom: 12px;">Join Our Booth Crawl!</h3>
-                        <p style="line-height: 1.6;">Visit us at <strong>BOOTH #2_37</strong> on Thursday<br/>from <strong>18:00 - 20:00</strong> for more Goose fun!</p>
+                        <h3 style="color: var(--accent-color); margin-bottom: 12px;">🎉 Mission Complete!</h3>
+                        <p style="line-height: 1.6;">
+                            Visit <strong>BOOTH #2_37</strong> and use the password:
+                        </p>
+                        <div class="password-display" id="session-ended-password"></div>
+                        <p style="line-height: 1.6;">to claim your exclusive Goose swag! ✨</p>
                     </div>
                 </div>
             </div>
@@ -540,8 +554,8 @@
     <script>
         const challenges = [
             "Build a goal tracker where completing a goal makes your progress bar go backward. Every time you check something off, the bar shrinks. The closer you get to success, the closer you get to failure. Add some funny and unhelpful messages",
-            "Build the world’s most over-designed calculator. We’re talking glitter, gradients, dramatic button hover effects, dropdowns that do nothing, animations that make math feel like a Broadway number. If it looks normal, make it worse.",
-            "Create a typing game but don’t make it basic. It must involve typing and react to what (or how) the user types, but everything else is up to you. The more unhinged the better.",
+            "Build the world's most over-designed calculator. We're talking glitter, gradients, dramatic button hover effects, dropdowns that do nothing, animations that make math feel like a Broadway number. If it looks normal, make it worse.",
+            "Create a typing game but don't make it basic. It must involve typing and react to what (or how) the user types, but everything else is up to you. The more unhinged the better.",
             "Create a photo booth app with wonky filters. Bonus if you add a weAreDevs frame"
         ];
 
@@ -641,7 +655,15 @@
             if (previewCheckInterval) clearInterval(previewCheckInterval);
             document.getElementById('chat-frame').src = 'about:blank';
             document.getElementById('preview-frame').src = 'about:blank';
+            
+            // Get current hour and generate password
+            const hour = new Date().getHours();
+            const password = `top ${hour} gun`;
+            
+            // Update the session ended message with the password
+            document.getElementById('session-ended-password').textContent = password;
             document.getElementById('session-ended').style.display = 'flex';
+            
             currentSessionId = null;
             document.getElementById('current-session-id').textContent = 'None';
 
