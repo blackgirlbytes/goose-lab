@@ -3,20 +3,25 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Add security headers for camera access
+// Security headers (camera permission only — no COOP/COEP so iframes work)
 app.use((req, res, next) => {
-    // Required for camera access
-    res.setHeader('Feature-Policy', 'camera *');
+    // Camera permission policy
     res.setHeader('Permissions-Policy', 'camera=*');
-    // Security headers
-    res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
-    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
     next();
+});
+
+// Serve static files (assets, etc.)
+app.use('/assets', express.static('assets'));
+
+// Serve the launcher HTML file
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'goose-launcher.html'));
 });
 
 // Serve challenge files
@@ -43,22 +48,19 @@ app.post('/update-session', (req, res) => {
     try {
         const sessionId = req.body.sessionId;
         const sessionData = JSON.stringify({ session_id: sessionId }, null, 2);
-        
-        // Get absolute path to challenges directory
+
         const challengesDir = path.join(__dirname, 'challenges');
         const sessionFile = path.join(challengesDir, 'current_session.json');
-        
-        // Make sure challenges directory exists
+
         if (!fs.existsSync(challengesDir)) {
             console.log('Creating challenges directory...');
             fs.mkdirSync(challengesDir, { recursive: true });
         }
-        
-        // Write file
+
         console.log('Writing to:', sessionFile);
         fs.writeFileSync(sessionFile, sessionData);
         console.log('Successfully updated session ID to:', sessionId);
-        
+
         res.json({ success: true });
     } catch (error) {
         console.error('Error updating session:', error);
@@ -76,9 +78,11 @@ app.get('/check-files', (req, res) => {
 
         const challengeDir = path.join(__dirname, 'challenges', sessionId);
         const files = ['index.html', 'style.css', 'script.js'];
-        const exists = fs.existsSync(challengeDir) && 
-                      files.every(file => fs.existsSync(path.join(challengeDir, file)));
-        
+
+        const exists =
+            fs.existsSync(challengeDir) &&
+            files.every(file => fs.existsSync(path.join(challengeDir, file)));
+
         res.json({ exists });
     } catch (error) {
         console.error('Error checking files:', error);

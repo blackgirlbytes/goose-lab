@@ -11,36 +11,37 @@ mkdir -p challenges
 if [ ! -f "node_modules/express/package.json" ]; then
     echo "Installing dependencies..."
     npm init -y >/dev/null 2>&1
-    npm install express cors >/dev/null 2>&1
+    npm install express cors http-proxy-middleware >/dev/null 2>&1
 fi
 
 # Start the session writer in the background
 node session-writer.js &
 SESSION_WRITER_PID=$!
 
-# Start Goose web in the background
-goose web --port 8080 --host 127.0.0.1 &
+# Start Goose web in the background (using local development version)
+/Users/ebonyl/goose/target/debug/goose web --port 8080 --host 127.0.0.1 &
+# /Users/ebonyl/goose/target/debug/goose web --port 8080 --host 0.0.0.0 &
 GOOSE_PID=$!
 
 # Wait a moment for the servers to start
 sleep 2
 
-# Open the launcher in the default browser
+# Open the launcher from the HTTP server (this fixes iframe cross-origin issues)
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Try multiple methods for macOS
-    open -a "Google Chrome" "file://$SCRIPT_DIR/goose-launcher.html" || \
-    open -a "Firefox" "file://$SCRIPT_DIR/goose-launcher.html" || \
-    open -a "Safari" "file://$SCRIPT_DIR/goose-launcher.html" || \
-    open "file://$SCRIPT_DIR/goose-launcher.html"
+    open -a "Google Chrome" "http://localhost:3737/" || \
+    open -a "Firefox" "http://localhost:3737/" || \
+    open -a "Safari" "http://localhost:3737/" || \
+    open "http://localhost:3737/"
     
     # If none worked, provide instructions
     if [ $? -ne 0 ]; then
         echo "Please open this URL in your browser:"
-        echo "file://$SCRIPT_DIR/goose-launcher.html"
+        echo "http://localhost:3737/"
     fi
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Linux
-    xdg-open "file://$SCRIPT_DIR/goose-launcher.html"
+    xdg-open "http://localhost:3737/"
 fi
 
 # Function to clean up on exit

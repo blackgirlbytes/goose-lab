@@ -628,9 +628,15 @@
             if (previewCheckInterval) clearInterval(previewCheckInterval);
             lastModifiedTime = 0;
             filesExist = false;
-            currentSessionId = Date.now();
+            // Generate session ID in the correct format: YYYYMMDD_HH
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hour = String(now.getHours()).padStart(2, '0');
+            currentSessionId = `${year}${month}${day}_${hour}`;
 
-            document.getElementById('chat-frame').src = `http://127.0.0.1:8080/session/${currentSessionId}`;
+            document.getElementById('chat-frame').src = `http://localhost:8080/session/${currentSessionId}`;
             document.getElementById('chat-container').style.display = 'block';
             document.getElementById('session-ended').style.display = 'none';
             document.getElementById('preview-container').style.display = 'block';
